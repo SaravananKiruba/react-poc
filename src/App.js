@@ -14,8 +14,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} /> {/* Use 'element' instead of 'component' */}
-          <Route path="/about" element={<ListTable />} /> {/* Use 'element' instead of 'component' */}
-          <Route path="/contact" element={<NewBookingForm />} /> {/* Use 'element' instead of 'component' */}
+          <Route path="/ListTable" element={<ListTable />} /> {/* Use 'element' instead of 'component' */}
+          <Route path="/NewBookingForm" element={<NewBookingForm />} /> {/* Use 'element' instead of 'component' */}
         </Routes>
       </div>
     </Router>
