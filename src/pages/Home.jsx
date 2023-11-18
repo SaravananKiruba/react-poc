@@ -7,18 +7,33 @@ const Home = () => {
   const [ActiveOrders, setActiveOrders] = useState(0);
 
   useEffect(() => {
-    const orderNumber = '7485';
+   // GetOrderdeatilsbyorderNo(7485);
+    GetOrderDetails();
+  }, []);
+
+  const GetOrderdeatilsbyorderNo = (orderNumber) =>{
     fetch(`http://127.0.0.1:8000/api/order-details/${orderNumber}`)
       .then(response => response.json())
       .then(data => {
+        // need to code
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  const GetOrderDetails = () => {
+    fetch('http://127.0.0.1:8000/api/getorderdetails')
+      .then(response => response.json())
+      .then(data => {
         // Assuming the API response has a structure similar to the static data
-        const workordersData = data.success ? [data.data] : [];
+        const workordersData = data.success ? data.data : [];
         setWorkorders(workordersData);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }
 
   useEffect(() => {
     // Call the function to create or update the pie chart after workorders and invoices are set
