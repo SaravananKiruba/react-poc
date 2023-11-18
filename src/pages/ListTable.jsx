@@ -7,8 +7,8 @@ const OrderTable = () => {
 
   useEffect(() => {
     //GetOrderdeatilsbyorderNo(7485);
-    //getlatest100Records();
-    GetOrderDetails();
+    getlatest100Records();
+    //GetOrderDetails();
   }, []);
 
   const getlatest100Records = async () => {
@@ -51,23 +51,28 @@ const OrderTable = () => {
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b">Order Number</th>
-              <th className="py-2 px-4 border-b">Entry Date</th>
-              <th className="py-2 px-4 border-b">Entry User</th>
-              <th className="py-2 px-4 border-b">Order Date</th>
+              <th class="py-2 px-4 border-b font-bold bg-gray-200">Order Number</th>
+              <th class="py-2 px-4 border-b font-bold bg-gray-200">Order Date</th>
+              <th class="py-2 px-4 border-b font-bold bg-gray-200">Entry User</th>
+              <th class="py-2 px-4 border-b font-bold bg-gray-200">CSE</th>
+              <th class="py-2 px-4 border-b font-bold bg-gray-200">Owner</th>
+              <th class="py-2 px-4 border-b font-bold bg-gray-200">Client Name</th>
             </tr>
           </thead>
+
           <tbody>
             {orderDetails.map((order) => (
               <tr key={order.OrderNumber}>
-                <td className="py-2 px-4 border-b">{order.OrderNumber}</td>
-                <td className="py-2 px-4 border-b">{order.EntryDate}</td>
-                <td className="py-2 px-4 border-b">{order.EntryUser}</td>
-                <td className="py-2 px-4 border-b">{order.OrderDate}</td>
-                {/* Add more table cells with data as needed */}
+                <td className="py-2 px-4 border-b text-center">{order.OrderNumber}</td>
+                <td className="py-2 px-4 border-b text-center">{order.OrderDate}</td>
+                <td className="py-2 px-4 border-b text-center">{order.EntryUser}</td>
+                <td className="py-2 px-4 border-b text-center">{order.CSE}</td>
+                <td className="py-2 px-4 border-b text-center">{order.Owner}</td>
+                <td className="py-2 px-4 border-b text-center">{order.ClientName}</td>
               </tr>
             ))}
           </tbody>
+
         </table>
       ) : (
         <p>No order details available</p>
@@ -80,3 +85,4 @@ const OrderTable = () => {
 };
 
 export default OrderTable;
+
