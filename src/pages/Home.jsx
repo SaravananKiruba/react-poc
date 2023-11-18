@@ -84,7 +84,7 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-8">
-        <canvas id="pieChart" width="400" height="400"></canvas>
+        <canvas id="pieChart" className="w-1/2 h-1/2 mx-auto"></canvas>
       </div>
     </div>
   );
