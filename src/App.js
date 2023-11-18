@@ -5,7 +5,6 @@ import './index.css';
 import './App.css'
 import Home from './pages/Home';
 import ListTable from './pages/ListTable';
-import NewBookingForm from './pages/NewBookingForm';
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} /> {/* Use 'element' instead of 'component' */}
           <Route path="/ListTable" element={<ListTable />} /> {/* Use 'element' instead of 'component' */}
-          <Route path="/NewBookingForm" element={<NewBookingForm />} /> {/* Use 'element' instead of 'component' */}
         </Routes>
       </div>
     </Router>

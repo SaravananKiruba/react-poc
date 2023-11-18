@@ -44,6 +44,9 @@ const Home = () => {
     // Extract data for the chart
     const cancelledOrdersCount = workorders.filter(order => order.CancelFlag === 1).length;
     const activeOrdersCount = workorders.filter(order => order.CancelFlag === 0).length;
+
+    setActiveOrders(activeOrdersCount);
+    setCancelledOrders(cancelledOrdersCount);
   
     // Create the pie chart
     const canvas = document.getElementById('pieChart');
