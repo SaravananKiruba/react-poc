@@ -41,32 +41,31 @@ const Home = () => {
   }, [workorders]);
 
   const createPieChart = () => {
-    // Get the canvas element from the DOM
+    // Extract data for the chart
+    const cancelledOrdersCount = workorders.filter(order => order.CancelFlag === 1).length;
+    const activeOrdersCount = workorders.filter(order => order.CancelFlag === 0).length;
+  
+    // Create the pie chart
     const canvas = document.getElementById('pieChart');
     const ctx = canvas.getContext('2d');
-
+  
     // Destroy existing chart if it exists
     Chart.getChart(ctx)?.destroy();
-
-    // Extract data for the chart
-    setCancelledOrders(workorders.filter(order => order.CancelFlag === 1).length);
-    setActiveOrders(workorders.filter(order => order.CancelFlag === 0).length);
-
-    // Create the pie chart
+  
     new Chart(ctx, {
       type: 'pie',
       data: {
         labels: ['Cancelled Workorders', 'Active Workorders'],
         datasets: [
           {
-            data: [CancelledOrders, ActiveOrders],
+            data: [cancelledOrdersCount, activeOrdersCount],
             backgroundColor: ['#FF6384', '#36A2EB'],
           },
         ],
       },
     });
   };
-
+  
   return (
     <div className="container mx-auto p-4">
       <header className="text-center mb-8">
