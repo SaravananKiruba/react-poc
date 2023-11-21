@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Ch
 import './index.css';
 import './App.css'
 import Home from './pages/Home';
-import ListTable from './pages/ListTable';
+import OrderTable from './pages/OrderTable';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} /> {/* Use 'element' instead of 'component' */}
-          <Route path="/ListTable" element={<ListTable />} /> {/* Use 'element' instead of 'component' */}
+          <Route path="/OrderTable" element={<OrderTable />} /> {/* Use 'element' instead of 'component' */}
         </Routes>
       </div>
     </Router>
