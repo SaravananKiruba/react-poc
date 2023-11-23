@@ -72,48 +72,17 @@ const OrderTable = () => {
     return (
         <div className="p-4">
             <div className="flex mb-4 space-x-4">
-                <input
-                    type="text"
-                    placeholder="Order Number"
-                    value={filters.orderNumber}
-                    onChange={(e) => handleFilterChange('orderNumber', e.target.value)}
-                    className="border p-2"
-                />
-                <input
-                    type="text"
-                    placeholder="Order Date"
-                    value={filters.orderDate}
-                    onChange={(e) => handleFilterChange('orderDate', e.target.value)}
-                    className="border p-2"
-                />
-                <input
-                    type="text"
-                    placeholder="Entry User"
-                    value={filters.entryUser}
-                    onChange={(e) => handleFilterChange('entryUser', e.target.value)}
-                    className="border p-2"
-                />
-                <input
-                    type="text"
-                    placeholder="CSE"
-                    value={filters.cse}
-                    onChange={(e) => handleFilterChange('cse', e.target.value)}
-                    className="border p-2"
-                />
-                <input
-                    type="text"
-                    placeholder="Owner"
-                    value={filters.owner}
-                    onChange={(e) => handleFilterChange('owner', e.target.value)}
-                    className="border p-2"
-                />
-                <input
-                    type="text"
-                    placeholder="Client Name"
-                    value={filters.clientName}
-                    onChange={(e) => handleFilterChange('clientName', e.target.value)}
-                    className="border p-2"
-                />
+                {/* Filter input fields */}
+                {['orderNumber', 'orderDate', 'entryUser', 'cse', 'owner', 'clientName'].map((column) => (
+                    <input
+                        key={column}
+                        type="text"
+                        placeholder={column.charAt(0).toUpperCase() + column.slice(1)}
+                        value={filters[column]}
+                        onChange={(e) => handleFilterChange(column, e.target.value)}
+                        className="border p-2"
+                    />
+                ))}
             </div>
 
             {loading ? (
@@ -121,43 +90,56 @@ const OrderTable = () => {
             ) : displayedOrders.length > 0 ? (
                 <div>
                     <table className="min-w-full bg-white border border-gray-300">
-                        <OrderTableHeader column="orderNumber" sortOrder={sortOrder} onSort={handleSort}>
-                            Order Number
-                        </OrderTableHeader>
-                        <OrderTableHeader column="orderDate" sortOrder={sortOrder} onSort={handleSort}>
-                            Order Date
-                        </OrderTableHeader>
-                        <OrderTableHeader column="entryUser" sortOrder={sortOrder} onSort={handleSort}>
-                            Entry User
-                        </OrderTableHeader>
-                        <OrderTableHeader column="cse" sortOrder={sortOrder} onSort={handleSort}>
-                            CSE
-                        </OrderTableHeader>
-                        <OrderTableHeader column="owner" sortOrder={sortOrder} onSort={handleSort}>
-                            Owner
-                        </OrderTableHeader>
-                        <OrderTableHeader column="clientName" sortOrder={sortOrder} onSort={handleSort}>
-                            Client Name
-                        </OrderTableHeader>
+                        {/* Table headers */}
+                        <thead>
+                            <tr>
+                                {['orderNumber', 'orderDate', 'entryUser', 'cse', 'owner', 'clientName'].map((column) => (
+                                    <OrderTableHeader
+                                        key={column}
+                                        column={column}
+                                        sortOrder={sortOrder}
+                                        onSort={handleSort}
+                                    >
+                                        {column.charAt(0).toUpperCase() + column.slice(1)}
+                                    </OrderTableHeader>
+                                ))}
+                            </tr>
+                        </thead>
+                        {/* Table body */}
                         <tbody>
                             {displayedOrders.map((order) => (
                                 <tr key={order.OrderNumber}>
-                                    <td className="py-2 px-4 border-b text-center">{order.OrderNumber}</td>
-                                    <td className="py-2 px-4 border-b text-center">{order.OrderDate}</td>
-                                    <td className="py-2 px-4 border-b text-center">{order.EntryUser}</td>
-                                    <td className="py-2 px-4 border-b text-center">{order.CSE}</td>
-                                    <td className="py-2 px-4 border-b text-center">{order.Owner}</td>
-                                    <td className="py-2 px-4 border-b text-center">{order.ClientName}</td>
+                                    {/* Table cells */}
+                                    {['OrderNumber', 'OrderDate', 'EntryUser', 'CSE', 'Owner', 'ClientName'].map(
+                                        (field) => (
+                                            <td
+                                                key={field}
+                                                className="py-2 px-4 border-b text-center"
+                                            >
+                                                {order[field]}
+                                            </td>
+                                        )
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <div className="pagination">
-                        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                    {/* Pagination */}
+                    <div className="flex justify-between items-center mt-4">
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                        >
                             Previous
                         </button>
                         <span>Page {currentPage}</span>
-                        <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             ) : (
