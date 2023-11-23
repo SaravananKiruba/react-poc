@@ -46,12 +46,8 @@ const Home = () => {
 
     createChart('pie', [cancelledOrdersCount, activeOrdersCount]);
     createChart('bar', [cancelledOrdersCount, activeOrdersCount]);
-    createChart('line', [cancelledOrdersCount, activeOrdersCount]);
-    createChart('scatter', [cancelledOrdersCount, activeOrdersCount]);
-    createChart('bubble', [cancelledOrdersCount, activeOrdersCount]);
     createChart('doughnut', [cancelledOrdersCount, activeOrdersCount]);
     createChart('polarArea', [cancelledOrdersCount, activeOrdersCount]);
-    createChart('radar', [cancelledOrdersCount, activeOrdersCount]);
   };
 
 
@@ -75,40 +71,21 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-8">
-  <div className="flex">
-    <div className="w-1/2">
-      <h2 className="text-center mb-4">Pie Chart</h2>
-      <canvas id="pieChart" className="w-full h-40 mx-auto"></canvas>
-      
-      <h2 className="text-center mb-4 mt-4">Bar Chart</h2>
-      <canvas id="barChart" className="w-full h-40 mx-auto"></canvas>
-    </div>
-    <div className="w-1/2">
-      <h2 className="text-center mb-4">Line Chart</h2>
-      <canvas id="lineChart" className="w-full h-40 mx-auto"></canvas>
-      
-      <h2 className="text-center mb-4 mt-4">Scatter Chart</h2>
-      <canvas id="scatterChart" className="w-full h-40 mx-auto"></canvas>
-    </div>
-  </div>
-  <div className="flex">
-    <div className="w-1/2">
-      <h2 className="text-center mb-4">Bubble Chart</h2>
-      <canvas id="bubbleChart" className="w-full h-40 mx-auto"></canvas>
-      
-      <h2 className="text-center mb-4 mt-4">Doughnut Chart</h2>
-      <canvas id="doughnutChart" className="w-full h-40 mx-auto"></canvas>
-    </div>
-    <div className="w-1/2">
-      <h2 className="text-center mb-4">Polar Area Chart</h2>
-      <canvas id="polarAreaChart" className="w-full h-40 mx-auto"></canvas>
-      
-      <h2 className="text-center mb-4 mt-4">Radar Chart</h2>
-      <canvas id="radarChart" className="w-full h-40 mx-auto"></canvas>
-    </div>
-  </div>
-</div>
-
+        <div className="flex">
+          <div className="w-1/2">
+            <h2 className="text-center mb-4">Pie Chart</h2>
+            <canvas id="pieChart" className="w-full h-40 mx-auto"></canvas>
+            <h2 className="text-center mb-4 mt-4">Doughnut Chart</h2>
+            <canvas id="doughnutChart" className="w-full h-40 mx-auto"></canvas>            
+          </div>
+          <div className='w-1/2'>
+            <h2 className="text-center mb-4">Polar Area Chart</h2>
+            <canvas id="polarAreaChart" className="w-full h-40 mx-auto"></canvas>
+            <h2 className="text-center mb-4 mt-4">Bar Chart</h2>
+            <canvas id="barChart" className="w-full h-40 mx-auto"></canvas>            
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
