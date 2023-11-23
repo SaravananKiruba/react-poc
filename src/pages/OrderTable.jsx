@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import OrderTableHeader from '../components/OrderTableHeader';
-import OrderTableRow from '../components/OrderTableRow';
 
 const OrderTable = () => {
     const [orderDetails, setOrderDetails] = useState([]);
@@ -29,6 +27,7 @@ const OrderTable = () => {
                     ...filters,
                 },
             });
+
             if (response.data && response.data.success) {
                 setOrderDetails(response.data.data.data);
             } else {
@@ -43,18 +42,16 @@ const OrderTable = () => {
         }
     };
 
-    useEffect(() => {
-       getOrders();
-        const fetchData = async () => {
-            try {
-                await getOrders();
-                filteredAndSortedOrders();
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-            }
-        };
+    const OrderTableHeader = ({ column, children, sortOrder, onSort }) => (
+        <th className="py-2 px-4 border-b font-bold bg-gray-200 cursor-pointer">
+          <button onClick={() => onSort(column)} className="focus:outline-none">
+            {children} {sortOrder === 'asc' ? '▲' : '▼'}
+          </button>
+        </th>
+      );
 
-        fetchData();
+    useEffect(() => {
+        getOrders();
     }, [currentPage, sortColumn, sortOrder, filters]);
 
     const handleSort = (column) => {
@@ -70,34 +67,16 @@ const OrderTable = () => {
         setCurrentPage(newPage);
     };
 
-    const filteredAndSortedOrders = () => {
-        let filteredOrders = orderDetails != null ? [orderDetails] : [];
-
-        // filteredOrders = filteredOrders.filter((order) =>
-        //     Object.entries(filters).every(([key, value]) =>
-        //         order[key] && order[key].toLowerCase().includes(value.toLowerCase())
-        //     )
-        // );
-        // if (sortColumn) {
-        //     filteredOrders.sort((a, b) => {
-        //         const aValue = a[sortColumn] ? a[sortColumn].toLowerCase() : '';
-        //         const bValue = b[sortColumn] ? b[sortColumn].toLowerCase() : '';
-        //         return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        //     });
-        // }
-        return filteredOrders[0];
-    };
-    const displayedOrders = filteredAndSortedOrders();
+    const displayedOrders = orderDetails || [];
 
     return (
-
         <div className="p-4">
             {loading ? (
                 <p>Loading...</p>
-            ) : displayedOrders && displayedOrders.length > 0 ? (
+            ) : displayedOrders.length > 0 ? (
                 <div>
                     <table className="min-w-full bg-white border border-gray-300">
-                        <OrderTableHeader column="orderNumber" sortOrder={sortOrder} onSort={handleSort}>
+                    <OrderTableHeader column="orderNumber" sortOrder={sortOrder} onSort={handleSort}>
                             Order Number
                         </OrderTableHeader>
                         <OrderTableHeader column="orderDate" sortOrder={sortOrder} onSort={handleSort}>
@@ -117,21 +96,23 @@ const OrderTable = () => {
                         </OrderTableHeader>
                         <tbody>
                             {displayedOrders.map((order) => (
-                                <OrderTableRow key={order.OrderNumber} order={order} />
+                                <tr key={order.OrderNumber}>
+                                    <td className="py-2 px-4 border-b text-center">{order.OrderNumber}</td>
+                                    <td className="py-2 px-4 border-b text-center">{order.OrderDate}</td>
+                                    <td className="py-2 px-4 border-b text-center">{order.EntryUser}</td>
+                                    <td className="py-2 px-4 border-b text-center">{order.CSE}</td>
+                                    <td className="py-2 px-4 border-b text-center">{order.Owner}</td>
+                                    <td className="py-2 px-4 border-b text-center">{order.ClientName}</td>
+                                </tr>
                             ))}
                         </tbody>
                     </table>
                     <div className="pagination">
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        >
+                        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                             Previous
                         </button>
                         <span>Page {currentPage}</span>
-                        <button onClick={() => handlePageChange(currentPage + 1)}>
-                            Next
-                        </button>
+                        <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
                     </div>
                 </div>
             ) : (
