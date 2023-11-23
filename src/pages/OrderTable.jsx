@@ -44,11 +44,11 @@ const OrderTable = () => {
 
     const OrderTableHeader = ({ column, children, sortOrder, onSort }) => (
         <th className="py-2 px-4 border-b font-bold bg-gray-200 cursor-pointer">
-          <button onClick={() => onSort(column)} className="focus:outline-none">
-            {children} {sortOrder === 'asc' ? '▲' : '▼'}
-          </button>
+            <button onClick={() => onSort(column)} className="focus:outline-none">
+                {children} {sortOrder === 'asc' ? '▲' : '▼'}
+            </button>
         </th>
-      );
+    );
 
     useEffect(() => {
         getOrders();
@@ -71,12 +71,57 @@ const OrderTable = () => {
 
     return (
         <div className="p-4">
+            <div className="flex mb-4 space-x-4">
+                <input
+                    type="text"
+                    placeholder="Order Number"
+                    value={filters.orderNumber}
+                    onChange={(e) => handleFilterChange('orderNumber', e.target.value)}
+                    className="border p-2"
+                />
+                <input
+                    type="text"
+                    placeholder="Order Date"
+                    value={filters.orderDate}
+                    onChange={(e) => handleFilterChange('orderDate', e.target.value)}
+                    className="border p-2"
+                />
+                <input
+                    type="text"
+                    placeholder="Entry User"
+                    value={filters.entryUser}
+                    onChange={(e) => handleFilterChange('entryUser', e.target.value)}
+                    className="border p-2"
+                />
+                <input
+                    type="text"
+                    placeholder="CSE"
+                    value={filters.cse}
+                    onChange={(e) => handleFilterChange('cse', e.target.value)}
+                    className="border p-2"
+                />
+                <input
+                    type="text"
+                    placeholder="Owner"
+                    value={filters.owner}
+                    onChange={(e) => handleFilterChange('owner', e.target.value)}
+                    className="border p-2"
+                />
+                <input
+                    type="text"
+                    placeholder="Client Name"
+                    value={filters.clientName}
+                    onChange={(e) => handleFilterChange('clientName', e.target.value)}
+                    className="border p-2"
+                />
+            </div>
+
             {loading ? (
                 <p>Loading...</p>
             ) : displayedOrders.length > 0 ? (
                 <div>
                     <table className="min-w-full bg-white border border-gray-300">
-                    <OrderTableHeader column="orderNumber" sortOrder={sortOrder} onSort={handleSort}>
+                        <OrderTableHeader column="orderNumber" sortOrder={sortOrder} onSort={handleSort}>
                             Order Number
                         </OrderTableHeader>
                         <OrderTableHeader column="orderDate" sortOrder={sortOrder} onSort={handleSort}>
