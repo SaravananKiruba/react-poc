@@ -71,7 +71,7 @@ const OrderTable = () => {
 
     return (
         <div className="p-4">
-            <div className="flex mb-4 space-x-4">
+            <div className="flex mb-4  space-x-16">
                 {/* Filter input fields */}
                 {['orderNumber', 'orderDate', 'entryUser', 'cse', 'owner', 'clientName'].map((column) => (
                     <input
