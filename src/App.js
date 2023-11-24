@@ -1,10 +1,11 @@
 import React from 'react';
 import Navbar from './Navbar';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Change 'Switch' to 'Routes'
-import './index.css';
-import './App.css'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import OrderTable from './pages/OrderTable';
+import LoginForm from './pages/LoginForm'; // Import the LoginForm component
+import './index.css';
+import './App.css';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Use 'element' instead of 'component' */}
-          <Route path="/OrderTable" element={<OrderTable />} /> {/* Use 'element' instead of 'component' */}
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/OrderTable" element={<OrderTable />} />
         </Routes>
       </div>
     </Router>
