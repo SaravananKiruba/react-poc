@@ -42,6 +42,29 @@ const OrderTable = () => {
         }
     };
 
+    const handleDownloadPDF = async (orderNumber) => {
+        try {
+            setLoading(true);
+            const response = await axios.get(`http://127.0.0.1:8000/api/generate-pdf/${orderNumber}`, {
+                responseType: 'arraybuffer',
+            });
+
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `Order_${orderNumber}_Invoice.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setLoading(false);
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+            alert('Error downloading PDF');
+            setLoading(false);
+        }
+    };
+
     const OrderTableHeader = ({ column, children, sortOrder, onSort }) => (
         <th className="py-2 px-4 border-b font-bold bg-gray-200 cursor-pointer">
             <button onClick={() => onSort(column)} className="focus:outline-none">
@@ -49,6 +72,10 @@ const OrderTable = () => {
             </button>
         </th>
     );
+
+    const handleRowClick = (orderNumber) => {
+        handleDownloadPDF(orderNumber);
+    };
 
     useEffect(() => {
         getOrders();
@@ -71,8 +98,7 @@ const OrderTable = () => {
 
     return (
         <div className="p-4">
-            <div className="flex mb-4  space-x-16">
-                {/* Filter input fields */}
+            <div className="flex mb-4 space-x-16">
                 {['orderNumber', 'orderDate', 'entryUser', 'cse', 'owner', 'clientName'].map((column) => (
                     <input
                         key={column}
@@ -90,7 +116,6 @@ const OrderTable = () => {
             ) : displayedOrders.length > 0 ? (
                 <div>
                     <table className="min-w-full bg-white border border-gray-300">
-                        {/* Table headers */}
                         <thead>
                             <tr>
                                 {['orderNumber', 'orderDate', 'entryUser', 'cse', 'owner', 'clientName'].map((column) => (
@@ -105,18 +130,19 @@ const OrderTable = () => {
                                 ))}
                             </tr>
                         </thead>
-                        {/* Table body */}
                         <tbody>
                             {displayedOrders.map((order) => (
-                                <tr key={order.OrderNumber}>
-                                    {/* Table cells */}
+                                <tr key={order.OrderNumber} onClick={() => handleRowClick(order.OrderNumber)}>
                                     {['OrderNumber', 'OrderDate', 'EntryUser', 'CSE', 'Owner', 'ClientName'].map(
                                         (field) => (
-                                            <td
-                                                key={field}
-                                                className="py-2 px-4 border-b text-center"
-                                            >
-                                                {order[field]}
+                                            <td key={field} className="py-2 px-4 border-b text-center">
+                                                {field === 'OrderNumber' ? (
+                                                    <button onClick={() => handleDownloadPDF(order.OrderNumber)}>
+                                                        {order[field]}
+                                                    </button>
+                                                ) : (
+                                                    order[field]
+                                                )}
                                             </td>
                                         )
                                     )}
@@ -124,7 +150,6 @@ const OrderTable = () => {
                             ))}
                         </tbody>
                     </table>
-                    {/* Pagination */}
                     <div className="flex justify-between items-center mt-4">
                         <button
                             onClick={() => handlePageChange(currentPage - 1)}
@@ -137,6 +162,7 @@ const OrderTable = () => {
                         <button
                             onClick={() => handlePageChange(currentPage + 1)}
                             className="bg-blue-500 text-white px-4 py-2 rounded"
+                            disabled={displayedOrders.length < 25} // Adjust based on actual page size
                         >
                             Next
                         </button>
