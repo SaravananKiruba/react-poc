@@ -42,7 +42,7 @@ const Home = () => {
         datasets: [
           {
             data: chartData,
-            backgroundColor: ['#FF6384', '#36A2EB'],
+            backgroundColor: ['rgb(245 158 11)', 'rgb(251 191 36)'],
           },
         ],
       },
@@ -59,15 +59,15 @@ const Home = () => {
         <h1 className="text-4xl font-bold">Baleen Media Dashboard</h1>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="p-4 bg-blue-500 text-white rounded shadow-md">
+        <div className="p-4 bg-amber-500 text-black rounded shadow-md">
           <h2 className="text-xl font-bold mb-2">Total Workorders</h2>
           <p className="text-3xl">{totalWorkorders}</p>
         </div>
-        <div className="p-4 bg-blue-500 text-white rounded shadow-md">
+        <div className="p-4 bg-amber-500 text-black rounded shadow-md">
           <h2 className="text-xl font-bold mb-2">Active Workorders</h2>
           <p className="text-3xl">{activeWorkorders}</p>
         </div>
-        <div className="p-4 bg-blue-500 text-white rounded shadow-md">
+        <div className="p-4 bg-amber-500 text-black rounded shadow-md">
           <h2 className="text-xl font-bold mb-2">Cancelled Workorders</h2>
           <p className="text-3xl">{cancelledWorkorders}</p>
         </div>

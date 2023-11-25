@@ -66,7 +66,7 @@ const OrderTable = () => {
     };
 
     const OrderTableHeader = ({ column, children, sortOrder, onSort }) => (
-        <th className="py-2 px-4 border-b font-bold bg-gray-200 cursor-pointer">
+        <th className="py-2 px-4 border-b font-bold bg-amber-300 cursor-pointer">
             <button onClick={() => onSort(column)} className="focus:outline-none">
                 {children} {sortOrder === 'asc' ? '▲' : '▼'}
             </button>
@@ -135,7 +135,7 @@ const OrderTable = () => {
                                 <tr key={order.OrderNumber} onClick={() => handleRowClick(order.OrderNumber)}>
                                     {['OrderNumber', 'OrderDate', 'EntryUser', 'CSE', 'Owner', 'ClientName'].map(
                                         (field) => (
-                                            <td key={field} className="py-2 px-4 border-b text-center">
+                                            <td key={field} className="py-2 px-4 border-b bg-amber-100 text-center">
                                                 {field === 'OrderNumber' ? (
                                                     <button onClick={() => handleDownloadPDF(order.OrderNumber)}>
                                                         {order[field]}
