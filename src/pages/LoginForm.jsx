@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-
+import { InputText } from 'primereact/inputtext';
+import { Checkbox } from 'primereact/checkbox';
+import { Button } from 'primereact/button';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -8,22 +9,20 @@ const LoginForm = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = (e) => {
-   
-    alert('Login need to Implement !!! ')
-
+    e.preventDefault();
+    alert('Login needs to be implemented!');
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-6">Login</h2>
-     
+    <div className="max-w-md mx-auto mt-10 p-6 border rounded-md shadow-md bg-yellow-50">
+      <h2 className="text-2xl font-semibold mb-6 text-black">Login</h2>
+
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
             Username
           </label>
-          <input
-            type="text"
+          <InputText
             id="username"
             name="username"
             value={username}
@@ -36,7 +35,7 @@ const LoginForm = () => {
           <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
             Password
           </label>
-          <input
+          <InputText
             type="password"
             id="password"
             name="password"
@@ -47,9 +46,8 @@ const LoginForm = () => {
           />
         </div>
         <div className="mb-4 flex items-center">
-          <input
-            type="checkbox"
-            id="rememberMe"
+          <Checkbox
+            inputId="rememberMe"
             name="rememberMe"
             checked={rememberMe}
             onChange={() => setRememberMe(!rememberMe)}
@@ -60,12 +58,11 @@ const LoginForm = () => {
           </label>
         </div>
         <div className="mb-6">
-          <button
+          <Button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
-          >
-            Login
-          </button>
+            label="Login"
+            className="bg-light-green-300 text-black py-2 px-4 rounded-md"
+          />
         </div>
         <div className="text-sm text-gray-600">
           <a href="#" className="hover:underline">
